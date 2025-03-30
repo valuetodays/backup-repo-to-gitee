@@ -33,6 +33,14 @@ runs:
         # remote repo may be public/private, according to github repo
         # https://www.cnblogs.com/starlog/p/15733104.html
         echo ${GITHUB_REPOSITORY}
+        curl -L \
+        -X PUT \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${{ inputs.token }}" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        "https://api.github.com/repos/valuetodays/sync-gitee-mirror-test/contents/path1" \
+        -d '{"message":"for github action","committer":{"name":"bot","email":"octocat@github.com"},"content":"bXkgbmV3IGZpbGUgY29udGVudHM="}'
+        
         _owner=$(echo "${GITHUB_REPOSITORY}"|cut -f1 -d"/")
         _repo_name=$(echo "${GITHUB_REPOSITORY}"|cut -f2 -d"/")
         _created=$(curl -X POST --header 'Content-Type: application/json;charset=UTF-8' \
