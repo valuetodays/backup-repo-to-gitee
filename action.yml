@@ -1,4 +1,4 @@
-name: 'sync-gitee-mirror'
+name: 'sync-gitee-mirror-vt'
 description: '同步 GitHub 仓库到 Gitee 仓库'
 inputs:
   repository:
