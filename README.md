@@ -10,8 +10,8 @@
 在 GitHub actions 配置文件中写入以下内容，其中 `with` 下的部分需要按需修改。
 
 ```yaml
-- name: sync-gitee-mirror
-  uses: abersheeran/sync-gitee-mirror@v1-beta
+- name: sync-gitee-mirror-vt
+  uses: valuetodays/sync-gitee-mirror-vt@t0.1
   with:
     repository: abersheeran/sync-gitee-mirror
     username: ${{ secrets.USERNAME }}
