@@ -47,7 +47,7 @@ runs:
         'https://gitee.com/api/v5/user/repos' \
         -d '{"access_token":"${{ inputs.password }}","name":"${_repo_name}","has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}')
         echo "_created = ${_created}"
-        remote_repo="https://${{ inputs.username || }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
+        remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
         git show-ref # useful for debugging
         git branch --verbose
