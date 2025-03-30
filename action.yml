@@ -17,6 +17,9 @@ runs:
   using: composite
   steps:
     - run: |
+        echo begin
+        echo ${GITHUB_REPOSITORY}
+        env
         git init
         git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
         git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64)"
@@ -26,6 +29,9 @@ runs:
         done
       shell: bash
     - run: |
+        # try to create remote repo when not exist
+        # remote repo may be public/private, according to github repo
+        echo ${GITHUB_REPOSITORY}
         remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
         git show-ref # useful for debugging

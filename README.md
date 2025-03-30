@@ -2,6 +2,9 @@
 
 使用 GitHub actions 同步 GitHub 仓库到 Gitee 仓库
 
+创建gitee token。
+配置 GITEE_TOKEN
+
 ## 使用说明
 
 在 GitHub actions 配置文件中写入以下内容，其中 `with` 下的部分需要按需修改。
@@ -12,7 +15,8 @@
   with:
     repository: abersheeran/sync-gitee-mirror
     username: ${{ secrets.USERNAME }}
-    password: ${{ secrets.PASSWORD }}
+-    password: ${{ secrets.PASSWORD }}
++    password: ${{ secrets.GITEE_TOKEN }}
 ```
 
 - `repository`：填你的用户名与仓库名，格式如样例所示。
