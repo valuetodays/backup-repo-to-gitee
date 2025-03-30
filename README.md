@@ -11,7 +11,7 @@
 
 ```yaml
 - name: sync-gitee-mirror-vt
-  uses: valuetodays/sync-gitee-mirror-vt@master
+  uses: valuetodays/sync-gitee-mirror@master
   with:
     repository: abersheeran/sync-gitee-mirror
     username: ${{ secrets.USERNAME }}

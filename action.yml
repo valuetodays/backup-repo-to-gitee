@@ -31,8 +31,15 @@ runs:
     - run: |
         # try to create remote repo when not exist
         # remote repo may be public/private, according to github repo
+        # https://www.cnblogs.com/starlog/p/15733104.html
         echo ${GITHUB_REPOSITORY}
-        remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
+        _owner=$(echo "${GITHUB_REPOSITORY}"|cut -f1 -d"/")
+        _repo_name=$(echo "${GITHUB_REPOSITORY}"|cut -f2 -d"/")
+        _created=$(curl -X POST --header 'Content-Type: application/json;charset=UTF-8' \
+        'https://gitee.com/api/v5/user/repos' \
+        -d '{"access_token":"${{ inputs.password }}","name":"${_repo_name}","has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}')
+        echo "_created = ${_created}"
+        remote_repo="https://${{ inputs.username || }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
         git show-ref # useful for debugging
         git branch --verbose
