@@ -25,7 +25,7 @@ def get_json(url, query_string_dict=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='argparse testing')
     parser.add_argument('--url',     '-u',type=str ,required=True,help="url")
-    parser.add_argument('--passcode','-p',type=int, help='password or passcode')
+    parser.add_argument('--passcode','-p',type=str, help='password or passcode')
     parser.add_argument('--reponame','-r',type=str, help='reponame')
 
     args = parser.parse_args()
