@@ -14,46 +14,11 @@ inputs:
     description: 'GitHub 令牌，用于私有仓库的拉取。'
     default: ${{ github.token }}
 runs:
-  using: composite
-  steps:
-    - run: |
-        echo begin
-        echo ${GITHUB_REPOSITORY}
-        env
-        git init
-        git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
-        git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64)"
-        git fetch --all
-        for branch in `git branch -a | grep remotes | grep -v HEAD`; do
-          git branch --track ${branch##*/} $branch
-        done
-      shell: bash
-    - run: |
-        # try to create remote repo when not exist
-        # remote repo may be public/private, according to github repo
-        # https://www.cnblogs.com/starlog/p/15733104.html
-        echo ${GITHUB_REPOSITORY}
-        _submit_file=$(curl -L -X PUT \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ github.token }}" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        "https://api.github.com/repos/valuetodays/sync-gitee-mirror-test/contents/path1.tmp.txt" \
-        -d '{"message":"for github action","committer":{"name":"bot","email":"octocat@github.com"},"content":"bXkgbmV3IGZpbGUgY29udGVudHM="}')
-        echo "_submit_file = ${_submit_file}"
-        
-        _owner=$(echo "${GITHUB_REPOSITORY}"|cut -f1 -d"/")
-        _repo_name=$(echo "${GITHUB_REPOSITORY}"|cut -f2 -d"/")
-        echo "_owner = ${_owner}, _repo_name = ${_repo_name}"
-        _request_body=$(printf '{"access_token":"${{ inputs.password }}","name":'"${_repo_name}"',"has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}' "${_repo_name}")
-        _created=$(curl -X POST --header 'Content-Type: application/json;charset=UTF-8' \
-        'https://gitee.com/api/v5/user/repos' \
-        -d '$(printf "${_request_body}")')
-        echo "_created = ${_created}"
-        remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
-        git remote add gitee "${remote_repo}"
-        git show-ref # useful for debugging
-        git branch --verbose
-        # publish all
-        git push --all --force gitee
-        git push --tags --force gitee
-      shell: bash
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.repository }}
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
+    
