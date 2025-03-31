@@ -7,13 +7,17 @@ if [[ "$DEBUG" == "true" ]]; then
 fi
 
 
-# python3 -m venv /py-scripts/env
-# ls /py-scripts/env/bin
+python3 -m venv ~/py_envs
+ls ~/py_envs/bin
+source ~/py_envs/bin/activate
+python3 -m pip install requests==2.25.1
+python3 -m pip install -r /py-scripts/requirements.txt
+
 
 # source /py-scripts/venv/Scripts/activate
 # source /py-scripts/venv/bin/activate
-pip3 install requests==2.25.1
-pip3 install -r /py-scripts/requirements.txt
+# pip3 install requests==2.25.1
+# pip3 install -r /py-scripts/requirements.txt
 
 git lfs install
 
