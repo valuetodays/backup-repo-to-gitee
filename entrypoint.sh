@@ -43,5 +43,13 @@ python3 /py-scripts/http_utils.py --passcode "${INPUT_PASSWORD}" \
 --reponame "${_repo_name}"
 
 
+remote_repo="https://${INPUT_USERNAME}:${INPUT_PASSWORD}@gitee.com/${INPUT_REPOSITORY}.git"
+git remote add gitee "${remote_repo}"
+git show-ref # useful for debugging
+git branch --verbose
+# publish all
+git push --all --force gitee
+git push --tags --force gitee
+
 # Skip original code
 exit $?
