@@ -5,8 +5,8 @@ inputs:
     description: 'Gitee 仓库，例如 abersheeran/gitee-mirror'
     required: true
   username:
-    description: 'Gitee 用户名，用于登录。'
-    required: true
+    description: 'Gitee 用户名，默认和github用户名一样。'
+    required: false
   password:
     description: 'Gitee 密码，用于登录。'
     required: true
@@ -45,7 +45,7 @@ runs:
         _repo_name=$(echo "${GITHUB_REPOSITORY}"|cut -f2 -d"/")
         _created=$(curl -X POST --header 'Content-Type: application/json;charset=UTF-8' \
         'https://gitee.com/api/v5/user/repos' \
-        -d '{"access_token":"${{ inputs.password }}","name":"${_repo_name}","has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}')
+        -d '{"access_token":"${{ inputs.password }}","name":'"${_repo_name}"',"has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}')
         echo "_created = ${_created}"
         remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
