@@ -6,6 +6,7 @@ if [[ "$DEBUG" == "true" ]]; then
   set -x
 fi
 
+
 python3 -m venv /py-scripts/env
 source /py-scripts/venv/bin/activate
 pip3 install -r /py-scripts/requirements.txt
