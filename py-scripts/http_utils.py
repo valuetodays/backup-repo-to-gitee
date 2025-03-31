@@ -29,7 +29,7 @@ if __name__ == '__main__':
     parser.add_argument('--reponame','-r',type=str, help='reponame')
 
     args = parser.parse_args()
-    print(args.name)
+    print(args)
 
     json_data = {"has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}
     json_data['access_token'] = args.passcode
