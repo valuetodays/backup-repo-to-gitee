@@ -44,9 +44,10 @@ runs:
         _owner=$(echo "${GITHUB_REPOSITORY}"|cut -f1 -d"/")
         _repo_name=$(echo "${GITHUB_REPOSITORY}"|cut -f2 -d"/")
         echo "_owner = ${_owner}, _repo_name = ${_repo_name}"
+        _request_body=$(printf '{"access_token":"${{ inputs.password }}","name":'"${_repo_name}"',"has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}' "${_repo_name}")
         _created=$(curl -X POST --header 'Content-Type: application/json;charset=UTF-8' \
         'https://gitee.com/api/v5/user/repos' \
-        -d '{"access_token":"${{ inputs.password }}","name":'"${_repo_name}"',"has_issues":"true","has_wiki":"true","can_comment":"true","private":"true"}')
+        -d '$(printf "${_request_body}")')
         echo "_created = ${_created}"
         remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
