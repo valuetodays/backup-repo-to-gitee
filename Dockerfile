@@ -6,5 +6,5 @@ RUN apt update && apt install git git-lfs python3-full python3-pip -y && \
 ADD *.sh /
 ADD py-scripts /py-scripts
 ADD action.yml /
-
+RUN chmod 777 /*.sh
 ENTRYPOINT ["/entrypoint.sh"]
