@@ -23,6 +23,8 @@ git lfs install
 echo begin
 echo ${GITHUB_REPOSITORY}
 env
+mkdir ~/git_repo
+cd ~/git_repo
 git init
 git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
 git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${INPUT_TOKEN}" | base64)"
