@@ -8,7 +8,7 @@ fi
 
 
 python3 -m venv /py-scripts/env
-ls /py-scripts/env/
+ls /py-scripts/env/bin
 
 source /py-scripts/venv/Scripts/activate
 #source /py-scripts/venv/bin/activate
