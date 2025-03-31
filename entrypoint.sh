@@ -37,13 +37,22 @@ _owner=$(echo "${GITHUB_REPOSITORY}"|cut -f1 -d"/")
 _repo_name=$(echo "${GITHUB_REPOSITORY}"|cut -f2 -d"/")
 echo "_owner = ${_owner}, _repo_name = ${_repo_name}"
 
+_real_gitee_user=${_owner}
+if [[ "${INPUT_GITEEUSER}" != "" ]]; then
+  _real_gitee_user=${INPUT_GITEEUSER}
+fi
+_real_gitee_repo=${_repo_name}
+if [[ "${INPUT_GITEEREPO}" != "" ]]; then
+  _real_gitee_repo=${INPUT_GITEEREPO}
+fi
 
-python3 /py-scripts/http_utils.py --passcode "${INPUT_PASSWORD}" \
+
+python3 /py-scripts/http_utils.py --passcode "${INPUT_GITEETOKEN}" \
 --url "https://gitee.com/api/v5/user/repos" \
---reponame "${_repo_name}"
+--reponame "${_real_gitee_repo}"
 
 
-remote_repo="https://${INPUT_USERNAME}:${INPUT_PASSWORD}@gitee.com/${INPUT_REPOSITORY}.git"
+remote_repo="https://${_real_gitee_user}:${INPUT_GITEETOKEN}@gitee.com/${_real_gitee_user}/${_real_gitee_repo}.git"
 git remote add gitee "${remote_repo}"
 git show-ref # useful for debugging
 git branch --verbose

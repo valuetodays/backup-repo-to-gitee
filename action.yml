@@ -1,14 +1,14 @@
-name: 'sync-gitee-mirror-vt'
+name: 'vt-backup-repo-to-gitee'
 description: '同步 GitHub 仓库到 Gitee 仓库'
 inputs:
-  repository:
-    description: 'Gitee 仓库，例如 abersheeran/gitee-mirror'
-    required: true
-  username:
+  giteerepo:
+    description: 'Gitee 仓库，例如 REPO，默认和github用户名一样。'
+    required: false
+  giteeuser:
     description: 'Gitee 用户名，默认和github用户名一样。'
     required: false
-  password:
-    description: 'Gitee 密码，用于登录。'
+  giteetoken:
+    description: 'Gitee token'
     required: true
   token:
     description: 'GitHub 令牌，用于私有仓库的拉取。'
@@ -18,7 +18,6 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.token }}
-    - ${{ inputs.repository }}
-    - ${{ inputs.username }}
-    - ${{ inputs.password }}
-    
+    - ${{ inputs.giteerepo }}
+    - ${{ inputs.giteeuser }}
+    - ${{ inputs.giteetoken }}
