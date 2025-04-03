@@ -6,7 +6,7 @@
 
 ## 使用说明
 
-可以参考[示例工程](https://github.com/valuetodays/sync-gitee-mirror-test)。
+可以参考[示例工程](https://github.com/valuetodays/backup-repo-to-gitee-sample)。
 
 在 GitHub actions 配置文件中写入以下内容，其中 `with` 下的部分需要按需修改。
 
