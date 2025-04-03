@@ -1,4 +1,4 @@
-name: 'vt-backup-repo-to-gitee'
+name: 'backup-repo-to-gitee'
 description: '同步 GitHub 仓库到 Gitee 仓库'
 inputs:
   giteerepo:
