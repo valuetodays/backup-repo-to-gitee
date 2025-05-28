@@ -10,8 +10,11 @@ def post_json(url, data_as_json):
     headers = {
         "Content-Type": "application/json; charset=UTF-8"
     }
-    response = requests.post(url, json=data_as_json, headers=headers).json()
-    return response
+    response = requests.post(url, json=data_as_json, headers=headers)
+    print('response=', response)
+    as_json = response.json()
+    print('as_json=', as_json)
+    return as_json
 
 
 def get_json(url, query_string_dict=None):
