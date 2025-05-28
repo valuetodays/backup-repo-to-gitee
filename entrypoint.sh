@@ -53,11 +53,16 @@ python3 /py-scripts/http_utils.py --passcode "${INPUT_GITEETOKEN}" \
 
 
 remote_repo="https://${_real_gitee_user}:${INPUT_GITEETOKEN}@gitee.com/${_real_gitee_user}/${_real_gitee_repo}.git"
+echo git remote add gitee "${remote_repo}"
 git remote add gitee "${remote_repo}"
+echo git show-ref
 git show-ref # useful for debugging
+echo git branch --verbose
 git branch --verbose
 # publish all
+echo git push --all --force gitee
 git push --all --force gitee
+echo git push --tags --force gitee
 git push --tags --force gitee
 
 # Skip original code
